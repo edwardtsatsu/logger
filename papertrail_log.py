@@ -1,15 +1,22 @@
 import logging
 from logging.handlers import SysLogHandler
+import os
+from dotenv import load_dotenv
 
 
-PAPERTRAIL_HOST = "logs5.papertrailapp.com"
-PAPERTRAIL_PORT = 25167
+load_dotenv()
+
+PAPERTRAIL_HOST = os.getenv("PAPERTRAIL_HOST")
+PAPERTRAIL_PORT = int(os.getenv("PAPERTRAIL_PORT"))
+analyzer = os.getenv("ANALYZER")
 
 
-def log_message() -> object:
-    logger = logging.getLogger("edwardtsatsu")
+def create_logger():
+    logger = logging.getLogger(analyzer)
     logger.setLevel(logging.DEBUG)
     handler = SysLogHandler(address=(PAPERTRAIL_HOST, PAPERTRAIL_PORT))
+    formatter = logging.Formatter('%(asctime)s %(levelname)s %(pathname)s:%(lineno)d %(message)s')
+    handler.setFormatter(formatter)
     logger.addHandler(handler)
 
     return logger
@@ -17,13 +24,13 @@ def log_message() -> object:
 
 def even_number(number):
     try:
-        log = log_message()
+        log = create_logger()
         if number % 2 == 0:
             log.info(f"ths number {number} is even")
         else:
             log.info(f"ths number {number} is odd")
     except Exception as e:
-        log.error(f"An error occurred: {str(e)}")
+        log.exception(f"An error occurred: {str(e)}")
 
 
 if __name__ == "__main__":
