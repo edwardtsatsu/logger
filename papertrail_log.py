@@ -1,17 +1,22 @@
 import logging
 from logging.handlers import SysLogHandler
-import os
-from dotenv import load_dotenv
 
 
-load_dotenv()
+class NumberAnalyzer:
+    def __init__(self, logger):
+        self.logger = logger
 
-PAPERTRAIL_HOST = os.getenv("PAPERTRAIL_HOST")
-PAPERTRAIL_PORT = int(os.getenv("PAPERTRAIL_PORT"))
-analyzer = os.getenv("ANALYZER")
+    def is_even(self, number):
+        try:
+            if number % 2 == 0:
+                self.logger.info(f"The number {number} is even")
+            else:
+                self.logger.info(f"The number {number} is odd")
+        except Exception as e:
+            self.logger.exception(f"An error occurred: {str(e)}")
 
 
-def create_logger():
+def create_logger(analyzer):
     logger = logging.getLogger(analyzer)
     logger.setLevel(logging.DEBUG)
     handler = SysLogHandler(address=(PAPERTRAIL_HOST, PAPERTRAIL_PORT))
@@ -22,19 +27,19 @@ def create_logger():
     return logger
 
 
-def even_number(number):
-    try:
-        log = create_logger()
-        if number % 2 == 0:
-            log.info(f"ths number {number} is even")
-        else:
-            log.info(f"ths number {number} is odd")
-    except Exception as e:
-        log.exception(f"An error occurred: {str(e)}")
-
-
 if __name__ == "__main__":
-    even_number(5396)
-    even_number(2)
-    even_number(3)
-    even_number("four")
+    import os
+    from dotenv import load_dotenv
+    load_dotenv()
+
+    PAPERTRAIL_HOST = os.getenv("PAPERTRAIL_HOST")
+    PAPERTRAIL_PORT = int(os.getenv("PAPERTRAIL_PORT"))
+    ANALYZER = os.getenv("ANALYZER")
+
+    logger = create_logger(ANALYZER)
+    analyzer = NumberAnalyzer(logger)
+
+    analyzer.is_even(5396)
+    analyzer.is_even(2)
+    analyzer.is_even(3)
+    analyzer.is_even("four")
