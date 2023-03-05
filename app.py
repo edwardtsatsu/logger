@@ -5,7 +5,11 @@ import logging
 
 
 def main():
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format='%(asctime)s %(levelname)s (message)s'
+
+    )
     logging.warning('This is a warning message')
     logging.info('This is an info message')
     logging.debug('This is a debug message')
