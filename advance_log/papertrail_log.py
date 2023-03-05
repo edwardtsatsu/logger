@@ -1,4 +1,4 @@
-from log_config import create_logger
+from advance_log.log_config import create_logger
 
 
 class NumberAnalyzer:
