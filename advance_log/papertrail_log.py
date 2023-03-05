@@ -1,6 +1,7 @@
 from log_config import create_logger
 
-
+"""_summary_
+"""
 class NumberAnalyzer:
     def __init__(self,logger):
         self.logger = logger

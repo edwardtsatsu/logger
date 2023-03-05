@@ -6,10 +6,16 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+"""_summary_
+"""
+
 ANALYZER = os.getenv("ANALYZER")
 PAPERTRAIL_HOST = os.getenv("PAPERTRAIL_HOST")
 PAPERTRAIL_PORT = int(os.getenv("PAPERTRAIL_PORT"))
 
+
+"""_summary_
+"""
 def create_logger() -> logging.Logger:
     logger = logging.getLogger(ANALYZER)
     logger.setLevel(logging.DEBUG)
