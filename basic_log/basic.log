@@ -28,3 +28,8 @@
 2023-03-05 12:16:00 DEBUG This is a debug message
 2023-03-05 12:16:00 ERROR This is an error message
 2023-03-05 12:16:00 CRITICAL This is a critical message
+2023-03-05 02:42:23 WARNING This is a warning message
+2023-03-05 02:42:23 INFO This is an info message
+2023-03-05 02:42:23 DEBUG This is a debug message
+2023-03-05 02:42:23 ERROR This is an error message
+2023-03-05 02:42:23 CRITICAL This is a critical message
